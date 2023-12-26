@@ -1,118 +1,234 @@
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
+import baseUrl from "@/helpers/baseUrl";
+import Radiobox from "@/components/RadioBox";
+import React, { useState, useEffect } from "react";
+import Checkbox from "@/components/checkbox";
+// import baseUrl from '@/helpers/baseUrl';
+import { useRouter } from "next/router";
+import Dropdown from "@/components/dropdown";
+import stateDropdown from "@/components/states";
+import Link from "next/link";
 
-const inter = Inter({ subsets: ['latin'] })
+const signup = () => {
+  const router = useRouter();
+  const [name, setName] = useState();
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const [mobile, setMobile] = useState();
+  const [selectedGender, setSelectedGender] = useState("");
+  const [selectedMedia, setSelectedMedia] = useState([]);
+  const [selectedOption, setSelectedOption] = useState(null);
+  console.log(
+    name,
+    email,
+    password,
+    mobile,
+    selectedGender,
+    selectedMedia,
+    selectedOption
+  );
 
-export default function Home() {
+  const handleRadioBoxChange = (name) => {
+    setSelectedGender(name);
+  };
+
+  const handleCheckboxChange = (name) => {
+    setSelectedMedia((prevMedia) => {
+      return prevMedia.includes(name)
+        ? prevMedia.filter((Media) => Media !== name)
+        : [...prevMedia, name];
+    });
+  };
+
+  const handleOptionChange = (option) => {
+    setSelectedOption(option);
+  };
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+    // console.log(name , email , password , mobile , selectedGender , selectedMedia , selectedOption)
+    const res = await fetch(`${baseUrl}/api/signup`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        Name: name,
+        Email: email,
+        Mobile: mobile,
+        Gender: selectedGender,
+        Media: selectedMedia,
+        State: selectedOption,
+        Password: password,
+      }),
+    });
+    const res2 = await res.json();
+    if (res2.error) {
+      // M.toast({ html: res2.error, classes: "red" });
+    } else {
+      // M.toast({ html: res2.message, classes: "green" });
+      router.push("/login");
+    }
+  }
+
   return (
-    <main
-      className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
-    >
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">pages/index.js</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+    <div className="flex items-center justify-center min-h-screen px-20">
+      <div className="flex flex-col rounded-2xl bg-white md:flex-row md:items-center shadow-lg">
+        <div className="md:p-5">
+          <div className="text-left p-5 flex flex-col gap-4">
+            <p className="text-3xl font-serif font-bold py-4">Sign-Up</p>
+            <p className="text-gray-500 max-w-sm">Create your account</p>
+            <form onSubmit={handleSubmit}>
+              <input
+                type="text"
+                placeholder="Enter your Name"
+                className="w-full h-10 mt-4 p-6 rounded-md border"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+              <input
+                type="email"
+                placeholder="Enter your E-mail"
+                className="w-full h-10 mt-4 p-6 rounded-md border"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
 
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700/10 after:dark:from-sky-900 after:dark:via-[#0141ff]/40 before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
+              <input
+                type="text"
+                placeholder="Enter your Mobile No"
+                className="w-full h-10 mt-4 p-6 rounded-md border"
+                value={mobile}
+                onChange={(e) => setMobile(e.target.value)}
+              />
+
+              <div className="py-2 flex gap-3">
+                <h3 className="">Gender : </h3>
+                <div className="flex flex-row justify-between gap-4">
+                  <Radiobox
+                    label="Male"
+                    name="Male"
+                    checked={selectedGender === "Male"}
+                    onChange={() => handleRadioBoxChange("Male")}
+                  />
+                  <div className="mr-36">
+                    <Radiobox
+                      label="Female"
+                      name="Female"
+                      checked={selectedGender === "Female"}
+                      onChange={() => handleRadioBoxChange("Female")}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex gap-2 flex-col">
+                <h3 className="text-md">how did you hear about this ?</h3>
+                <div className="flex flex-col gap-1">
+                  <Checkbox
+                    label="LinkedIn"
+                    name="LinkedIn"
+                    checked={selectedMedia.includes("LinkedIn")}
+                    onChange={() => handleCheckboxChange("LinkedIn")}
+                  />
+                  <Checkbox
+                    label="Friends"
+                    name="Friends"
+                    checked={selectedMedia.includes("Friends")}
+                    onChange={() => handleCheckboxChange("Friends")}
+                  />
+                  <Checkbox
+                    label="Job Portal"
+                    name="Job Portal"
+                    checked={selectedMedia.includes("Job Portal")}
+                    onChange={() => handleCheckboxChange("Job Portal")}
+                  />
+
+                  <Checkbox
+                    label="Other"
+                    name="Other"
+                    checked={selectedMedia.includes("Other")}
+                    onChange={() => handleCheckboxChange("Other")}
+                  />
+                </div>
+              </div>
+
+              <div className="mt-2">
+                <Dropdown
+                  options={[
+                    "Andhra Pradesh",
+                    "Arunachal Pradesh",
+                    "Assam",
+                    "Bihar",
+                    "Chhattisgarh",
+                    "Goa",
+                    "Gujarat",
+                    "Haryana",
+                    "Himachal Pradesh",
+                    "Jammu and Kashmir",
+                    "Jharkhand",
+                    "Karnataka",
+                    "Kerala",
+                    "Madhya Pradesh",
+                    "Maharashtra",
+                    "Manipur",
+                    "Meghalaya",
+                    "Mizoram",
+                    "Nagaland",
+                    "Odisha",
+                    "Punjab",
+                    "Rajasthan",
+                    "Sikkim",
+                    "Tamil Nadu",
+                    "Telangana",
+                    "Tripura",
+                    "Uttarakhand",
+                    "Uttar Pradesh",
+                    "West Bengal",
+                    "Andaman and Nicobar Islands",
+                    "Chandigarh",
+                    "Dadra and Nagar Haveli",
+                    "Daman and Diu",
+                    "Delhi",
+                    "Lakshadweep",
+                    "Puducherry",
+                  ]}
+                  value={selectedOption}
+                  onChange={handleOptionChange}
+                />
+              </div>
+
+              <input
+                type="password"
+                placeholder="Enter your Password"
+                className="w-full h-10 mt-2 p-6 rounded-md border"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <div className="flex flex-col md:flex-row md:justify-between items-center justify-center gap-7 mt-4">
+                <button
+                  type="submit"
+                  className="w-3/4 bg-cyan-800 hover:bg-cyan-600 md:w-48 text-white rounded-md border h-14 text-lg"
+                >
+                  SignUp
+                </button>
+                <Link href="/login">
+                  <button className="w-3/4 bg-cyan-800 hover:bg-cyan-600 md:w-48 text-white rounded-md border h-14 text-lg">
+                    Login
+                  </button>
+                </Link>
+              </div>
+            </form>
+            <hr className="border mt-5" />
+          </div>
+        </div>
+        <img
+          src="/image.jpg"
+          alt=""
+          className="w-[430px] h-fit hidden md:block"
         />
       </div>
+    </div>
+  );
+};
 
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Discover and deploy boilerplate example Next.js&nbsp;projects.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
-}
+export default signup;
