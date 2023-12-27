@@ -1,2 +1,2 @@
-const baseUrl = process.env.NODE_ENV === 'http://localhost:3000';
+const baseUrl = process.env.NODE_ENV === 'https://localhost:3000';
 export default baseUrl;
