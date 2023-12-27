@@ -84,8 +84,8 @@ const signup = () => {
                 className="w-full h-10 mt-4 p-6 rounded-md border"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                  id='ashish'
-                    name='ashi'
+                id='ashish'
+                name='Name'
               />
               <input
                 type="email"
@@ -93,8 +93,8 @@ const signup = () => {
                 className="w-full h-10 mt-4 p-6 rounded-md border"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                  id='Ema'
-                    name = 'Emal'
+                id='Email'
+                name='Emal'
               />
 
               <input
@@ -103,8 +103,8 @@ const signup = () => {
                 className="w-full h-10 mt-4 p-6 rounded-md border"
                 value={mobile}
                 onChange={(e) => setMobile(e.target.value)}
-                  name='Mon'
-                    id='mpb'
+                name='Mob'
+                id='mobi'
               />
 
               <div className="py-2 flex gap-3">
@@ -115,6 +115,7 @@ const signup = () => {
                     name="Male"
                     checked={selectedGender === "Male"}
                     onChange={() => handleRadioBoxChange("Male")}
+                    id='gendermale'
                   />
                   <div className="mr-36">
                     <Radiobox
@@ -122,6 +123,7 @@ const signup = () => {
                       name="Female"
                       checked={selectedGender === "Female"}
                       onChange={() => handleRadioBoxChange("Female")}
+                      id='genderfemale'
                     />
                   </div>
                 </div>
@@ -209,6 +211,8 @@ const signup = () => {
                 className="w-full h-10 mt-2 p-6 rounded-md border"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                name='Pass'
+                id='userPassword'
               />
               <div className="flex flex-col md:flex-row md:justify-between items-center justify-center gap-7 mt-4">
                 <button
