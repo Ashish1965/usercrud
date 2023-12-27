@@ -46,7 +46,7 @@ const signup = () => {
   async function handleSubmit(event) {
     event.preventDefault();
     // console.log(name , email , password , mobile , selectedGender , selectedMedia , selectedOption)
-    const res = await fetch(`${baseUrl}/api/signup`, {
+    const res = await fetch('https://usercrud-three.vercel.app/api/signup', {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
