@@ -84,6 +84,8 @@ const signup = () => {
                 className="w-full h-10 mt-4 p-6 rounded-md border"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
+                  id='ashish'
+                    name='ashi'
               />
               <input
                 type="email"
@@ -91,6 +93,8 @@ const signup = () => {
                 className="w-full h-10 mt-4 p-6 rounded-md border"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                  id='Ema'
+                    name = 'Emal'
               />
 
               <input
@@ -99,6 +103,8 @@ const signup = () => {
                 className="w-full h-10 mt-4 p-6 rounded-md border"
                 value={mobile}
                 onChange={(e) => setMobile(e.target.value)}
+                  name='Mon'
+                    id='mpb'
               />
 
               <div className="py-2 flex gap-3">
