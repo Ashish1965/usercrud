@@ -47,7 +47,7 @@ const login = () => {
                 placeholder="Enter your E-mail"
                 className="w-full h-10 mt-4 p-8 rounded-md border"
                 value={email}
-                autocomplete="off"
+                name='Emai'
                 onChange={(e) => setEmail(e.target.value)}
               />
 
@@ -56,7 +56,7 @@ const login = () => {
                 placeholder="Enter your Password"
                 className="w-full h-10 mt-4 p-8 rounded-md border"
                 value={password}
-                autocomplete="off"
+                name='pass'
                 onChange={(e) => setPassword(e.target.value)}
               />
               <div className="flex flex-col md:flex-row md:justify-between items-center justify-center gap-7 mt-4">
