@@ -85,7 +85,6 @@ const signup = () => {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 id='ashish'
-                name='Name'
               />
               <input
                 type="email"
@@ -94,7 +93,7 @@ const signup = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 id='Email'
-                name='Emal'
+              
               />
 
               <input
@@ -103,7 +102,7 @@ const signup = () => {
                 className="w-full h-10 mt-4 p-6 rounded-md border"
                 value={mobile}
                 onChange={(e) => setMobile(e.target.value)}
-                name='Mob'
+                
                 id='mobi'
               />
 
@@ -115,7 +114,7 @@ const signup = () => {
                     name="Male"
                     checked={selectedGender === "Male"}
                     onChange={() => handleRadioBoxChange("Male")}
-                    id='gendermale'
+                
                   />
                   <div className="mr-36">
                     <Radiobox
@@ -123,7 +122,7 @@ const signup = () => {
                       name="Female"
                       checked={selectedGender === "Female"}
                       onChange={() => handleRadioBoxChange("Female")}
-                      id='genderfemale'
+                    
                     />
                   </div>
                 </div>
