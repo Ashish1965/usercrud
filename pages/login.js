@@ -11,7 +11,7 @@ const login = () => {
   const router = useRouter();
   async function handleSubmit(event) {
     event.preventDefault();
-    const res = await fetch(`${baseUrl}/api/login`, {
+    const res = await fetch('https://usercrud-three.vercel.app/api/login', {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
