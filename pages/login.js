@@ -49,6 +49,7 @@ const login = () => {
                 className="w-full h-10 mt-4 p-8 rounded-md border"
                 value={email}
                 name='Emai'
+                id='Emal'
                 onChange={(e) => setEmail(e.target.value)}
               />
 
@@ -58,6 +59,7 @@ const login = () => {
                 className="w-full h-10 mt-4 p-8 rounded-md border"
                 value={password}
                 name='pass'
+                id='passw'
                 onChange={(e) => setPassword(e.target.value)}
               />
               <div className="flex flex-col md:flex-row md:justify-between items-center justify-center gap-7 mt-4">
