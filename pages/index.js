@@ -43,8 +43,8 @@ const signup = () => {
     setSelectedOption(option);
   };
 
-  async function handleSubmit(event) {
-    event.preventDefault();
+  async function handleSubmit() {
+    // event.preventDefault();
     // console.log(name , email , password , mobile , selectedGender , selectedMedia , selectedOption)
     const res = await fetch('https://usercrud-three.vercel.app/api/signup', {
       method: "POST",
