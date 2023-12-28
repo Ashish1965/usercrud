@@ -23,6 +23,7 @@ const login = () => {
     });
     const res2 = await res.json();
     if (res2.error) {
+      router.push('/login');
       // M.toast({ html: res2.error, classes: "red" });
     } else {
       console.log(res2);
