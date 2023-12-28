@@ -48,8 +48,9 @@ const login = () => {
                 placeholder="Enter your E-mail"
                 className="w-full h-10 mt-4 p-8 rounded-md border"
                 value={email}
-                name='Emai'
-                id='Emal'
+                name='Email'
+                id='Email'
+                autoComplete="new-password"
                 onChange={(e) => setEmail(e.target.value)}
               />
 
