@@ -68,7 +68,7 @@ const dashboard = (props) => {
       selectedMedia,
       selectedOption
     );
-    const res = await fetch(`${baseUrl}/api/signup`, {
+    const res = await fetch('https://usercrud-three.vercel.app/api/signup', {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -97,7 +97,7 @@ const dashboard = (props) => {
     // console.log("clicked");
     // console.log(User);
     // console.log(name , email , password , mobile , selectedGender , selectedMedia , selectedOption)
-    const res = await fetch(`${baseUrl}/api/dashboard`, {
+    const res = await fetch('https://usercrud-three.vercel.app/api/dashboard', {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -121,7 +121,7 @@ const dashboard = (props) => {
   }
 
   async function handleDelete(uid) {
-    const res = await fetch(`${baseUrl}/api/dashboard`, {
+    const res = await fetch('https://usercrud-three.vercel.app/api/dashboard', {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -470,7 +470,7 @@ const dashboard = (props) => {
 };
 
 export async function getServerSideProps() {
-  const res = await fetch(`${baseUrl}/api/dashboard`);
+  const res = await fetch('https://usercrud-three.vercel.app/api/dashboard');
   const data = await res.json();
   console.log(data);
   return {
