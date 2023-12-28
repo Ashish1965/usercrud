@@ -63,8 +63,8 @@ const signup = () => {
     });
     const res2 = await res.json();
     if (res2.error) {
-      router.push("/");
-      <div>User already exists</div>
+     window.location.reload();
+      
       // M.toast({ html: res2.error, classes: "red" });
     } else {
       // M.toast({ html: res2.message, classes: "green" });
